@@ -18,104 +18,203 @@ import fr.afcepf.atod.wine.entity.ProductWine;
 import java.util.List;
 
 /**
- *
- * @author ronan
+ * Interface pour les règles de gestion associées
+ *  aux {@link Product} dans l'application.
+ * @author ronan - Metabeen
  */
 public interface IBuProduct {
-
-    /**
-     * methode pour trouver un vin par son nom
-     *
-     * @param name
-     * @return
-     * @throws fr.afcepf.atod.vin.data.exception.WineException
-     */
-    Product findByName(String name) throws WineException;
-    /**
-     * 
-     * @param id
-     * @return
-     * @throws WineException 
-     */
-    Product findById(Integer id) throws WineException;
-    /**
-     * 
-     * @return
-     * @throws WineException 
-     */
-    List<Product> getPromotedProductsSelection() throws WineException;
-    /**
-     * 
-     * @param min
-     * @return
-     * @throws WineException 
-     */
-    List<Product> findExpensive(double min) throws WineException;
-    /**
-     * 
-     * @return
-     * @throws WineException 
-     */
-    List<ProductType> getWineTypes() throws WineException;
-    /**
-     * 
-     * @param name
-     * @return
-     * @throws WineException 
-     */
-    List<Product> findProductsByName(String name) throws WineException;
-    /**
-     * 
-     * @param appelation
-     * @return
-     * @throws WineException 
-     */
-    List<Product> findProductsByAppelation(String appelation) throws WineException;
-    /**
-     * 
-     * @param vintage
-     * @return
-     * @throws WineException 
-     */
-    List<ProductVintage> findProductsByVintage(Integer vintage) throws WineException;
-    /**
-     * 
-     * @param variatal
-     * @return
-     * @throws WineException 
-     */
-    List<ProductVarietal> findProductsBy(String variatal) throws WineException;
-    /**
-     * 
-     * @param wineType
-     * @return
-     * @throws WineException 
-     */
-    List<ProductType> findProductsType(String wineType) throws WineException;
-    /**
-     * 
-     * @param wineTypes
-     * @return
-     * @throws WineException 
-     */
-    Map<ProductType, List<String>> getAppellationsByType(List<ProductType> wineTypes) throws WineException;
-    /**
-     * 
-     * @param wineTypes
-     * @return
-     * @throws WineException 
-     */
-    Map<ProductType, List<ProductVarietal>> getVarietalsByType(List<ProductType> wineTypes) throws WineException;
-    /**
-     * 
-     * @param type
-     * @param o
-     * @return
-     * @throws WineException 
-     */
-    List<ProductWine> categoryAccordingToObjectType(ProductType type, Object o,Integer firstRow,Integer rowsPerPage) throws WineException;
-    
-    Integer countCategoryAccordingToObjectType(ProductType type, Object o) throws WineException;
-    
-    Map<ProductType,Map<Integer, Integer>> getPricesRepartitionByType(List<ProductType> wineTypes) throws WineException;
+	/**
+	 * Méthode pour la récupération d'un {@link Product}
+	 * dans l'unité de persistence en utilisant comme
+	 * argument un String nom.
+	 * @param name Le String nom du vin.
+	 * @return le premier objet {@link Product} possédant le nom
+	 * correspondant à l'argument de la méthode.
+	 * @throws WineException
+	 * <ul>
+	 * <li>Aucun produit ne correspond à ce nom,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul>
+	 */
+	Product findByName(String name) throws WineException;
+	/**
+	 * Méthode pour la récupération d'un {@link Product}
+	 * dans l'unité de persistence en utilisant comme argument
+	 * un Integer identifiant.
+	 * @param id Identifiant correspondant au produit
+	 * dans l'unité de persistence.
+	 * @return un objet {@link Product} possédant l'indentifiant
+	 * correspondant à l'argument de la méthode.
+	 * @throws WineException
+	 * <ul>
+	 * <li>Aucun produit ne correspond à cet identifiant,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul> 
+	 */
+	Product findById(Integer id) throws WineException;
+	/**
+	 * Méthode permettant la récupération d'une {@link List}
+	 * d'objets {@link Product} en promotion ayant une date
+	 * d'expiration proche.
+	 * @return une {@link List} d'objets {@link Product}.
+	 * @throws WineException
+	 * <ul>
+	 * <li>Aucun produit n'approche suffisamment de la date
+	 * d'expiration,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul> 
+	 */
+	List<Product> getPromotedProductsSelection() throws WineException;
+	/**
+	 * Méthode permettant la récupération d'une {@link List}
+	 * d'objets {@link Product} selon le critère d'un montant minimum.
+	 * @param min Le montant minimum correspondant au prix d'un produit
+	 * Règle : prix du produit > min.
+	 * @return une {@link List} d'objets {@link Product}.
+	 * @throws WineException    
+	 * <ul>
+	 * <li>Aucun produit n'approche suffisamment de la date
+	 * d'expiration,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul>
+	 */
+	List<Product> findExpensive(double min) throws WineException;
+	/**
+	 * Méthode permettant la récupération d'une {@link List} de
+	 * {@link ProductType}.
+	 * @return une {@link List} d'objets {@link Product}.
+	 * @throws WineException
+	 * <ul>
+	 * <li>Aucun produit n'approche suffisamment de la date
+	 * d'expiration,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul>
+	 */
+	List<ProductType> getWineTypes() throws WineException;
+	/**
+	 * Méthode pour la récupération d'une {@link List} 
+	 * {@link Product} dans l'unité de persistence en utilisant 
+	 * comme argument un String nom.
+	 * @param name Le String nom des {@link Product}.
+	 * @return une {@link List} d'objets {@link Product}.
+	 * @throws WineException
+	 * <ul>
+	 * <li>Aucun produit(s) ne correspond à ce nom,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul>
+	 */
+	List<Product> findProductsByName(String name) throws WineException;
+	/**
+	 * Méthode pour la récupération d'une {@link List} 
+	 * {@link Product} dans l'unité de persistence en utilisant 
+	 * comme argument un String nom.
+	 * @param appelation Le String appelation des {@link Product}.
+	 * @return une {@link List} d'objets {@link Product}.
+	 * @throws WineException
+	 * <ul>
+	 * <li>Aucun produit(s) ne correspond à cette appelation,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul>
+	 */
+	List<Product> findProductsByAppelation(String appelation) throws WineException;
+	/**
+	 * Méthode permettant la récupération d'une {@link List} de {@link ProductVintage}
+	 * selon de millesime.
+	 * @param vintage Millesime d'un {@link ProductVintage}.
+	 * @return une {@link List} d'objets {@link ProductVintage}.
+	 * @throws WineException
+	 * <ul>
+	 * <li>Aucun produit(s) ne correspond à ce millesime,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul> 
+	 */
+	List<ProductVintage> findProductsByVintage(Integer vintage) throws WineException;
+	/**
+	 * Méthode permettant la récupération d'une {@link List} de {@link ProductVarietal}
+	 * selon le ceppage.
+	 * @param varietal Ceppage d'un {@link ProductVarietal}.
+	 * @return une {@link List} d'objets {@link ProductVarietal}.
+	 * @throws WineException 
+	 * <ul>
+	 * <li>Aucun produit(s) ne correspond à ce ceppage,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul> 
+	 */
+	List<ProductVarietal> findProductsBy(String varietal) throws WineException;
+	/**
+	 * Méthode permettant la récupération d'une {@link List} de {@link ProductType}
+	 * asséocié au type d'un vin.
+	 * @param wineType Type de vin sous forme de String.
+	 * @return une {@link List} d'objets {@link ProductType}.
+	 * @throws WineException 
+	 * <ul>
+	 * <li>Aucun produit(s) ne correspond à ce type de vin,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul> 
+	 */
+	List<ProductType> findProductsType(String wineType) throws WineException;
+	/**
+	 * Méthode permettant la récupération d'une {@link Map} ayant pour clé
+	 * le {@link ProductType} et comme valeurs une {@link List} de String 
+	 * correspondant à l'appelation.
+	 * @param wineTypes une {@link List} de {@link ProductType}.
+	 * @return une {@link Map} ayant pour clé {@link ProductType} 
+	 * et comme valeurs une {@link List} de String appelation.
+	 * @throws WineException 
+	 * <ul>
+	 * <li>Aucun produit(s) ne correspond à ce type de vin,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul> 
+	 */
+	Map<ProductType, List<String>> getAppellationsByType(List<ProductType> wineTypes) throws WineException;
+	/**
+	 * Méthode permettant la récupération d'une {@link Map} ayant pour clé
+	 * le {@link ProductType} et comme valeurs une {@link List} de {@link ProductVarietal}.
+	 * @param wineTypes une {@link List} de {@link ProductType}.
+	 * @return une {@link Map} ayant pour clé {@link ProductVarietal} 
+	 * @throws WineException 
+	 * <ul>
+	 * <li>Aucun produit(s) ne correspond à ces types de vin,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul> 
+	 */
+	Map<ProductType, List<ProductVarietal>> getVarietalsByType(List<ProductType> wineTypes) throws WineException;
+	/**
+	 * Méthode de filtre permettant la récupération de {@link ProductWine}
+	 * selon la catégorie.
+	 * @param type {@link ProductType} de la {@link List} de {@link ProductWine} à afficher.
+	 * @param o Type généric {@link Object} pour la détermination du type.
+	 * @return Une {@link List} de {@link ProductWine}.
+	 * @throws WineException 
+	 * <ul>
+	 * <li>Les paramètres saisis ne permettent pas d'afficher une liste de produits,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul> 
+	 */
+	List<ProductWine> categoryAccordingToObjectType(ProductType type, Object o,Integer firstRow,Integer rowsPerPage) throws WineException;
+	/**
+	 * Méthode permettant l'ébauche de la gestion des stocks.
+	 * @param type {@link ProductType} pour le décompte.
+	 * @param o {@link Object} pour la discrimination.
+	 * @return un {@link Integer} du décompte de bouteilles correspondant à ce {@link ProductType}.
+	 * @throws WineException
+	 * <ul>
+	 * <li>Aucune bouteilles disponible en stock,</li>
+	 * <li>impossible d'accéder à l'unité de persistence.</li>
+	 * </ul>
+	 */
+	Integer countCategoryAccordingToObjectType(ProductType type, Object o) throws WineException;
+	/**
+	 * Méthode permettant la répartition d'une {@link List} de {@link ProductType}
+	 * selon des critères de prix.
+	 * @param wineTypes une {@link List} de {@link ProductType}.
+	 * @return une {@link Map} ayant pour clé un {@link ProductType} et pour valeurs
+	 * une {@link Map} ayant pour clé un range de prix sous forme d'un {@link Integer} 
+	 * minimum et d'un {@link Integer} maximum.
+	 * @throws WineException
+	 * <ul>
+	 * <li>Une erreur générique,</li>
+	 * </ul>
+	 */
+	Map<ProductType,Map<Integer, Integer>> getPricesRepartitionByType(List<ProductType> wineTypes) throws WineException;
 }

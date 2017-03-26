@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +35,27 @@ import java.util.ArrayList;
  */
 @Service
 public class BuProduct implements IBuProduct, IGetWinesParameters {
-
+	/**
+	 * 
+	 */
     @Autowired
     protected IDaoProduct daoProduct;
+    /**
+     * 
+     */
+    private Logger log = Logger.getLogger(BuProduct.class);
     @Autowired
+    /**
+     * 
+     */
     private IDaoProductType daoProductType;
+    /**
+     * 
+     */
     private static final int MAX_SE = 50;
+    /**
+     * 
+     */
     private List<ProductWine> wines = null;
     
     //private static final int STEP_INT = 50;
@@ -115,7 +131,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
         } catch (Exception e) {
             throw new WineException(
                     WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
-                    "no promoted item referenced in db");
+                    "the persistence unit doesn't have ProductType");
         }
         return list;
     }
@@ -185,7 +201,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
         } catch (Exception e) {
             throw new WineException(
                     WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
-                    "no promoted item referenced in db");
+                    "cannot find any associated ProductType to this wineType");
         }
         return list;
     }
@@ -370,7 +386,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
                 map.put(productType, pricemap);
             }
         } catch (Exception e) {
-            e.getStackTrace();
+            log.debug(e);
         }
         return map;
 	}
