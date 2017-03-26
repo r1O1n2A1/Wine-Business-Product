@@ -5,46 +5,49 @@
  */
 package fr.afcepf.atod.business.product.designpattern.visitor;
 
+import fr.afcepf.atod.wine.entity.Product;
 import fr.afcepf.atod.wine.entity.ProductType;
 
 /**
- *
- * @author ronan
+ * Class pour la différentiation des types de produits.
+ * @author ronan - Metabeen
  */
 public class ProductBase {
-    
-    private ProductType type;
-    private Integer     firstRow;
-    private Integer     rowsPerPage;
+	/**
+	 * Objet pour le type d'un {@link Product}.
+	 */
+	private ProductType type;
+	private Integer     firstRow;
+	private Integer     rowsPerPage;
 
-    public ProductBase(ProductType type, 
-            Integer firstRow, Integer rowsPerPage) {
-        this.type        = type;
-        this.firstRow    = firstRow;
-        this.rowsPerPage = rowsPerPage;
-    }
+	public ProductBase(ProductType type, 
+			Integer firstRow, Integer rowsPerPage) {
+		this.type        = type;
+		this.firstRow    = firstRow;
+		this.rowsPerPage = rowsPerPage;
+	}
 
-    public ProductType getType() {
-        return type;
-    }
+	public ProductType getType() {
+		return type;
+	}
 
-    public void setType(ProductType type) {
-        this.type = type;
-    }
-    
-    public Integer getFirstRow() {
-        return firstRow;
-    }
+	public void setType(ProductType type) {
+		this.type = type;
+	}
 
-    public void setFirstRow(Integer firstRow) {
-        this.firstRow = firstRow;
-    }
+	public Integer getFirstRow() {
+		return firstRow;
+	}
 
-    public Integer getRowsPerPage() {
-        return rowsPerPage;
-    }
+	public void setFirstRow(Integer firstRow) {
+		this.firstRow = firstRow;
+	}
 
-    public void setRowsPerPage(Integer rowsPerPage) {
-        this.rowsPerPage = rowsPerPage;
-    }    
+	public Integer getRowsPerPage() {
+		return rowsPerPage;
+	}
+
+	public void setRowsPerPage(Integer rowsPerPage) {
+		this.rowsPerPage = rowsPerPage;
+	}    
 }

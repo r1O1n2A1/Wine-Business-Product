@@ -6,31 +6,44 @@
 package fr.afcepf.atod.business.product.designpattern.visitor;
 
 import fr.afcepf.atod.vin.data.exception.WineException;
+import fr.afcepf.atod.wine.entity.Customer;
 
 /**
  * Design Pattern Visitor
  * permet d'externaliser et de centraliser
  * des actions Ã  effectuer sur des objets 
  * qui n'ont pas forcÃ©ment de liens entre eux.
- * @author ronan
+ * @author ronan - Metabeen
  */
 public interface IVisitor {
     /**
-     * methode pour visiter
-     * @param visitable 
+     * Méthode pour l'accessibilité aux {@link Customer}.
+     * * TODO implement or delete
+     * @param visitable interface pour la visite {@link IVisitable}.
+     * <ul>
+     * <li></li>
+     * </ul>
      */
     void visit(IVisitable visitable);
     /**
-     * visit pour obtenir les produits selon
-     * le type et l'argent
-     * @param typeAndMoney
+     * Méthode pour l'accessibilité aux {@link Customer}
+     * en fonction du critère {@link ProductTypeMoney}.
+     * TODO implement or delete
+     * @param typeAndMoney un objet {@link ProductTypeMoney}.
      * @throws WineException 
+     * <ul>
+     * <li></li>
+     * </ul>
      */
     void visit(ProductTypeMoney typeAndMoney) throws WineException;
     /**
-     * visit pour les produits selon le type et le millesime
-     * @param typeAndVintage
+     * Méthode pour l'accessibilité aux {@link Customer} en fonction
+     * du critère {@link ProductTypeVintage}.
+     * @param typeAndVintage un objet {@link ProductTypeVintage}.
      * @throws WineException 
+     * <ul>
+     * <li></li>
+     * </ul>
      */
     void visit(ProductTypeVintage typeAndVintage) throws WineException;
 }

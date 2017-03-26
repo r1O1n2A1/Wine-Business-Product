@@ -1,5 +1,6 @@
 package fr.afcepf.atod.business.product.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,14 @@ import java.io.Serializable;
 
 @Service
 public class BuAdress implements IBuAdress {
-	
+	/**
+	 * Logger de log 4j pour les codes d'erreur.
+	 */
+	private Logger log = Logger.getLogger(BuAdress.class);
+	/**
+	 * Gestion de l'injection via Spring par
+	 * l'annotation autowired. 
+	 */
 	@Autowired
 	private IDaoAdress daoAdress;
 
@@ -21,8 +29,7 @@ public class BuAdress implements IBuAdress {
 		try {
 			adress = daoAdress.insertObj(adr);
 		} catch (WineException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.debug(e);
 		}
 		return adress;
 	}

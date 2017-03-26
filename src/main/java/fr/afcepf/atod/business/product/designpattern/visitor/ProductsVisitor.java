@@ -35,7 +35,7 @@ public class ProductsVisitor implements
 
     @Override
     public void visit(ProductTypeMoney typeAndMoney) throws WineException {        
-        
+    	// Not implemented yet
     }
 
     @Override

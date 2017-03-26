@@ -36,34 +36,34 @@ import java.util.ArrayList;
 @Service
 public class BuProduct implements IBuProduct, IGetWinesParameters {
 	/**
-	 * 
+	 * Logger de log 4j pour les codes d'erreur.
+	 */
+	private Logger log = Logger.getLogger(BuAdress.class);
+	/**
+	 * Gestion de l'injection via Spring par
+	 * l'annotation autowired. 
 	 */
     @Autowired
     protected IDaoProduct daoProduct;
     /**
-     * 
-     */
-    private Logger log = Logger.getLogger(BuProduct.class);
+	 * Gestion de l'injection via Spring par
+	 * l'annotation autowired. 
+	 */
     @Autowired
-    /**
-     * 
-     */
     private IDaoProductType daoProductType;
     /**
-     * 
+     * TODO Ask what it is?
      */
     private static final int MAX_SE = 50;
     /**
-     * 
+     * {@link List} d'objets {@link ProductWine}.
      */
     private List<ProductWine> wines = null;
-    
-    //private static final int STEP_INT = 50;
 
     @Override
     public Product findByName(String name) throws WineException {
         Product product = null;
-        WineException wineException = null;
+        WineException wineException;
         try {
             if (!name.equalsIgnoreCase("")) {
                 product = daoProduct.findByName(name);
@@ -83,6 +83,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
             wineException = new WineException(
                     WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
                     name + " not referenced in the db");
+            log.debug(e);
         }
         if (wineException != null) {
             throw wineException;
@@ -93,7 +94,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
     @Override
     public List<Product> findExpensive(double min) 
     		throws WineException {
-        List<Product> expensiveProds = null;
+        List<Product> expensiveProds;
         if (min >= 0) {
             expensiveProds = daoProduct.findExpensiveProducts(min);
             if (expensiveProds.isEmpty()) {
@@ -104,7 +105,6 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
             throw new WineException(WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
                     "criteria has to be defined...");
         }
-
         return expensiveProds;
     }
 
@@ -115,11 +115,11 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
         try {
             list = daoProduct.getPromotedProductsSortedByEndDate(MAX_SE/5);
         } catch (Exception e) {
+        	log.debug(e);
             throw new WineException(
                     WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
-                    "no promoted item referenced in db");
+                    "no promoted item referenced in db");  
         }
-
         return list;
     }
 
@@ -157,6 +157,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
         try {
             list = daoProduct.findByAppelation(appelation);
         } catch (Exception e) {
+        	log.debug(e);
             throw new WineException(
                     WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
                     "no promoted item referenced in db");
@@ -171,6 +172,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
         try {
             list = daoProduct.findByVintage(vintage);
         } catch (Exception e) {
+        	log.debug(e);
             throw new WineException(
                     WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
                     "no promoted item referenced in db");
@@ -185,6 +187,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
         try {
             list = daoProduct.findByVarietal(variatal);
         } catch (Exception e) {
+        	log.debug(e);
             throw new WineException(
                     WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
                     "no promoted item referenced in db");
@@ -199,6 +202,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
         try {
             list = daoProduct.findByType(wineType);
         } catch (Exception e) {
+        	log.debug(e);
             throw new WineException(
                     WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
                     "cannot find any associated ProductType to this wineType");
@@ -215,6 +219,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
                 map.put(productType, daoProduct.getAppellationsByWineType(productType));
             }
         } catch (Exception e) {
+        	log.debug(e);
             throw new WineException(
                     WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
                     "no promoted item referenced in db");
@@ -231,6 +236,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
                 map.put(productType, daoProduct.getVarietalsByWineType(productType));
             }
         } catch (Exception e) {
+        	log.debug(e);
             throw new WineException(
                     WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
                     "no promoted item referenced in db");
@@ -244,6 +250,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
         try {
             prod = daoProduct.findObj(id);
         } catch (Exception e) {
+        	log.debug(e);
             throw new WineException(
                     WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
                     "not referenced in db");
@@ -273,7 +280,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
     @Override
     public List<ProductWine> getWinesParameters(ProductType type, Object o,
     		Integer firstRow,Integer rowsPerPage) throws WineException {
-    	System.out.println("getWinesParameters");
+    	log.info("Get wines parameters");
     	wines = new ArrayList<>();
         if (o instanceof ProductVarietal) {
             ProductVarietal varietal = (ProductVarietal) o;
