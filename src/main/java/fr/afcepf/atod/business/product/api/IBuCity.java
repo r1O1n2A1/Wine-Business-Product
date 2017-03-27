@@ -5,16 +5,16 @@ import java.util.List;
 import fr.afcepf.atod.vin.data.exception.WineException;
 import fr.afcepf.atod.wine.entity.City;
 /**
- * Interface pour les règles de gestion
- * associées aux villes dans l'application.
+ * Interface pour les rÃ¨gles de gestion
+ * associÃ©es aux villes dans l'application.
  * @author Metabeen
  *
  */
 @FunctionalInterface
 public interface IBuCity {
 	/**
-	 * Méthode pour la récupération de toutes les villes
-	 * présentes dans l'unité de persistence.
+	 * MÃ©thode pour la rÃ©cupÃ©ration de toutes les villes
+	 * prÃ©sentes dans l'unitÃ© de persistence.
 	 * @return une {@link List} d'objets {@link City}.
 	 * @throws WineException
 	 */
