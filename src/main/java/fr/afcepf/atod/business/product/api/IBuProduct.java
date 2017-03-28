@@ -34,7 +34,7 @@ public interface IBuProduct {
 	 * <li>impossible d'acc�der � l'unit� de persistence.</li>
 	 * </ul>
 	 */
-	Product findByName(String name) throws WineException;
+	List<Product> findByName(String name) throws WineException;
 	/**
 	 * Méthode pour la récupération d'un {@link Product}
 	 * dans l'unité de persistence en utilisant comme argument

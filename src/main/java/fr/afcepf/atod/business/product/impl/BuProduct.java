@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.afcepf.atod.business.product.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +11,6 @@ import org.springframework.stereotype.Service;
 
 import fr.afcepf.atod.business.product.api.IBuProduct;
 import fr.afcepf.atod.business.product.api.IGetWinesParameters;
-import fr.afcepf.atod.business.product.designpattern.visitor.ProductBase;
-import fr.afcepf.atod.business.product.designpattern.visitor.IVisitable;
-import fr.afcepf.atod.business.product.designpattern.visitor.ProductsVisitor;
 import fr.afcepf.atod.vin.data.exception.WineErrorCode;
 import fr.afcepf.atod.vin.data.exception.WineException;
 import fr.afcepf.atod.wine.data.product.api.IDaoProduct;
@@ -27,7 +20,6 @@ import fr.afcepf.atod.wine.entity.ProductType;
 import fr.afcepf.atod.wine.entity.ProductVarietal;
 import fr.afcepf.atod.wine.entity.ProductVintage;
 import fr.afcepf.atod.wine.entity.ProductWine;
-import java.util.ArrayList;
 
 /**
  *
@@ -61,14 +53,14 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
     private List<ProductWine> wines = null;
 
     @Override
-    public Product findByName(String name) throws WineException {
-        Product product = null;
+    public List<Product> findByName(String name) throws WineException {
+        List<Product> products = null;
         WineException wineException;
         try {
             if (!name.equalsIgnoreCase("")) {
-                product = daoProduct.findByName(name);
-                if (!product.getName().equalsIgnoreCase("")) {
-                    return product;
+                products = daoProduct.findByName(name);
+                if (products.get(0) != null) {
+                    return products;
                 } else {
                     throw new WineException(
                             WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
@@ -88,7 +80,7 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
         if (wineException != null) {
             throw wineException;
         }
-        return product;
+        return products;
     }
 
     @Override
@@ -397,24 +389,5 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
         }
         return map;
 	}
-        
-        // point d'entree du design pattern visiteur
-        
-        public List<ProductWine> getWines(ProductType type, Object o,
-                Integer firstRow,Integer rowsPerPage) throws WineException {
-            wines = new ArrayList<>();
-            Integer count = 0;
-            ProductsVisitor productsVisitor = new ProductsVisitor();
-            ProductBase produitGlobal = new ProductBase(type, firstRow, rowsPerPage);
-            
-            if (o instanceof IVisitable) { 
-                ((IVisitable) o).accept(productsVisitor);
-                wines = productsVisitor.getWines();
-                count = productsVisitor.getCount();
-            } else {
-                throw new WineException(WineErrorCode.RECHERCHE_NON_PRESENTE_EN_BASE,
-					"Pas de bouteille de type : " + type.getType());
-            }
-            return wines;
-        }
+      
 }
