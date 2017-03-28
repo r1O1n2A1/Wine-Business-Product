@@ -272,7 +272,6 @@ public class BuProduct implements IBuProduct, IGetWinesParameters {
     @Override
     public List<ProductWine> getWinesParameters(ProductType type, Object o,
     		Integer firstRow,Integer rowsPerPage) throws WineException {
-    	log.info("Get wines parameters");
     	wines = new ArrayList<>();
         if (o instanceof ProductVarietal) {
             ProductVarietal varietal = (ProductVarietal) o;
