@@ -14,8 +14,8 @@ import fr.afcepf.atod.wine.entity.ProductVintage;
 import fr.afcepf.atod.wine.entity.ProductWine;
 import java.util.Map;
 /**
- * Class générée pour réaliser les tests.
- *TODO Réaliser les tests unitaires.
+ * Class gï¿½nï¿½rï¿½e pour rï¿½aliser les tests.
+ *TODO Rï¿½aliser les tests unitaires.
  * @author Metabeen
  *
  */
@@ -25,7 +25,7 @@ public class TestBu {
 	 */
 	private static Logger log = Logger.getLogger(TestBu.class);
 	/**
-	 * Point d'entrée de l'application pour les tets.
+	 * Point d'entrï¿½e de l'application pour les tets.
 	 * @param args Inutile dans ce contexte.
 	 * @throws WineException
 	 */
