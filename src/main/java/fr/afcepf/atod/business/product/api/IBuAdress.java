@@ -1,5 +1,6 @@
 package fr.afcepf.atod.business.product.api;
 
+import fr.afcepf.atod.vin.data.exception.WineException;
 import fr.afcepf.atod.wine.entity.Adress;
 /**
  * Interface pour les règles de gestion associées
@@ -14,6 +15,6 @@ public interface IBuAdress {
 	 * @param adr l'objet {@link Adress} pour l'ajout.
 	 * @return un objet {@link Adress}.
 	 */
-	Adress addNewAdress(Adress adr);
+	Adress addNewAdress(Adress adr) throws WineException;
 
 }

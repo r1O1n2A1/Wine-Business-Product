@@ -24,14 +24,14 @@ public class BuAdress implements IBuAdress {
 	private IDaoAdress daoAdress;
 
 	@Override
-	public Adress addNewAdress(Adress adr) {
+	public Adress addNewAdress(Adress adr) throws WineException{
 		Adress adress =null;
-		try {
 			adress = daoAdress.insertObj(adr);
-		} catch (WineException e) {
-			log.debug(e);
-		}
 		return adress;
+	}
+
+	public void setDaoAdress(IDaoAdress daoAdress) {
+		this.daoAdress = daoAdress;
 	}
 
 }
