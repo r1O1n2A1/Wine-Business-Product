@@ -11,6 +11,10 @@
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>Wine-Data-Product</artifactId>
 			<version>${project.parent.version}</version>
